@@ -40,7 +40,7 @@ usuário.
 | ⏚ | TERRA | N |
 | ⚶ | VESTA | T |
 | ⌘ | NO | M |
-| (tridente) | CUNHA | D |
+| Ψ | CUNHA | D |
 | — | NEUTRO | (ignorado — fundo/nada) |
 
 Letras disponíveis: **A E I O U S R N T M D** + espaço. O alfabeto não
