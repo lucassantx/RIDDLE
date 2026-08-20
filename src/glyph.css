@@ -1,0 +1,295 @@
+@import url("https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap");
+
+:root {
+  /* Fundo bem mais claro para segurar contraste sob projetor fraco
+     com luz de dia — evita o "quase preto" que estoura/lava no telão.
+     O texto verde precisa ficar mais escuro/saturado que um verde-neon
+     clássico para não sumir contra esse fundo claro. */
+  --bg: #d8e8dc;
+  --bg-panel: #c9e0cf;
+  --line: #8fb89c;
+  --green: #0e6b2e;
+  --green-dim: #1f8a3f;
+  --green-muted: #3a7a4d;
+  --alert: #c23b3b;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  background: var(--bg);
+  color: var(--green);
+  font-family: "Space Mono", monospace;
+}
+
+.atlas {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem 3rem;
+}
+
+.atlas-header {
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.atlas-kicker {
+  display: block;
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  color: var(--green-dim);
+  margin-bottom: 0.6rem;
+}
+
+.atlas-kicker::before {
+  content: ">> ";
+}
+
+.atlas-title {
+  font-family: "Space Mono", monospace;
+  font-weight: 700;
+  font-size: clamp(2.2rem, 6vw, 3.2rem);
+  letter-spacing: 0.1em;
+  margin: 0 0 0.3rem;
+  color: var(--green);
+  text-shadow: none;
+}
+
+.atlas-subtitle {
+  color: var(--green-muted);
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+.atlas-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.75rem;
+}
+
+@media (min-width: 760px) {
+  .atlas-grid {
+    grid-template-columns: 1.1fr 0.9fr;
+    align-items: start;
+  }
+}
+
+.ledger-eyebrow {
+  display: block;
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  color: var(--green-dim);
+  margin-bottom: 0.6rem;
+}
+
+.ledger-eyebrow::before {
+  content: ">> ";
+}
+
+/* --- Scan pane --- */
+
+.scan-pane {
+  background: var(--bg-panel);
+  border: 1px solid var(--line);
+  padding: 1.25rem;
+}
+
+.scan-frame {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  background: #050a06;
+  overflow: hidden;
+  border: 1px solid var(--green-dim);
+}
+
+.scan-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scaleX(-1);
+  filter: grayscale(0.3) contrast(1.1) brightness(0.95);
+}
+
+.scan-corners span {
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--green);
+  opacity: 0.9;
+}
+.scan-corners span:nth-child(1) { top: 8px; left: 8px; border-right: none; border-bottom: none; }
+.scan-corners span:nth-child(2) { top: 8px; right: 8px; border-left: none; border-bottom: none; }
+.scan-corners span:nth-child(3) { bottom: 8px; left: 8px; border-right: none; border-top: none; }
+.scan-corners span:nth-child(4) { bottom: 8px; right: 8px; border-left: none; border-top: none; }
+
+.scan-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 1rem;
+  background: rgba(5, 10, 6, 0.92);
+  color: var(--green);
+  font-size: 0.85rem;
+}
+
+.scan-overlay--error {
+  color: var(--alert);
+}
+
+.scan-reading {
+  margin-top: 1rem;
+}
+
+.scan-reading-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  margin-bottom: 0.4rem;
+  color: var(--green);
+}
+
+.scan-reading-row--small {
+  font-size: 0.75rem;
+  color: var(--green-muted);
+}
+
+.confidence-track {
+  height: 6px;
+  background: var(--line);
+  margin: 0.3rem 0;
+  overflow: hidden;
+}
+
+.confidence-fill {
+  height: 100%;
+  background: var(--green);
+  box-shadow: none;
+  transition: width 120ms linear;
+}
+
+/* --- Ledger --- */
+
+.ledger {
+  background: var(--bg-panel);
+  border: 1px solid var(--line);
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.ledger-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+.ledger-reset {
+  background: none;
+  border: 1px solid var(--green-dim);
+  color: var(--green-dim);
+  font-family: inherit;
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  padding: 0.3rem 0.6rem;
+}
+
+.ledger-reset:hover {
+  color: var(--green);
+  border-color: var(--green);
+}
+
+.ledger-specimens {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  min-height: 3rem;
+}
+
+.ledger-empty {
+  font-size: 0.8rem;
+  color: var(--green-muted);
+}
+
+.specimen-stamp {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border: 1px solid var(--green);
+  color: var(--green);
+  background: var(--bg);
+  font-family: "Space Mono", monospace;
+}
+
+.specimen-glyph {
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.specimen-index {
+  font-family: "Space Mono", monospace;
+  font-size: 0.5rem;
+  margin-top: 2px;
+  color: var(--green-dim);
+}
+
+.ledger-decoded {
+  border-top: 1px dashed var(--line);
+  padding-top: 1rem;
+}
+
+.decoded-text {
+  font-family: "Space Mono", monospace;
+  font-size: 1.6rem;
+  letter-spacing: 0.1em;
+  margin: 0;
+  word-break: break-word;
+  color: var(--green);
+  text-shadow: none;
+}
+
+.atlas-footer {
+  margin-top: 2rem;
+  text-align: center;
+  font-size: 0.78rem;
+  color: var(--green-dim);
+}
+
+.atlas-footer::before {
+  content: ">> ";
+}
+
+.ledger-column {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.meme-slot {
+  background: var(--bg-panel);
+  border: 1px solid var(--line);
+  padding: 0.75rem;
+}
+
+.meme-caption {
+  display: block;
+  width: 100%;
+  border: 1px solid var(--green-dim);
+}
